@@ -1,25 +1,21 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Engine;
 
 namespace MonoGame;
 
-public class Wall
+public class Wall : GameObject
 {
-    Texture2D _sprite;
     private int x;
     private int y;
-    public bool _horizontal;
+    private readonly bool _horizontal;
 
     public Wall(Texture2D sprite, Vector2 location, bool horizontal)
     {
-        _sprite = sprite;
+        Sprite = sprite;
         x = int.Parse(location.X.ToString());
         y = int.Parse(location.Y.ToString());
         _horizontal = horizontal;
-    }
-
-    public void Update(GameTime gameTime)
-    {
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -35,11 +31,11 @@ public class Wall
         {
             // Draw unrotated
             var center = new Vector2(x + (horizontalWidth / 2f), y + (horizontalHeight / 2f));
-            var origin = new Vector2(_sprite.Width / 2f, _sprite.Height / 2f);
-            var scale = new Vector2(horizontalWidth / (float)_sprite.Width, horizontalHeight / (float)_sprite.Height);
+            var origin = new Vector2(Sprite.Width / 2f, Sprite.Height / 2f);
+            var scale = new Vector2(horizontalWidth / (float)Sprite.Width, horizontalHeight / (float)Sprite.Height);
 
             spriteBatch.Draw(
-                _sprite,
+                Sprite,
                 center,
                 sourceRectangle: null,
                 color: Color.White,
@@ -53,13 +49,13 @@ public class Wall
         {
             // Rotate 90° so a horizontal sprite becomes a vertical wall
             var center = new Vector2(x + (verticalWidth / 2f), y + (verticalHeight / 2f));
-            var origin = new Vector2(_sprite.Width / 2f, _sprite.Height / 2f);
+            var origin = new Vector2(Sprite.Width / 2f, Sprite.Height / 2f);
 
             // Scale to the *pre-rotation* size (800x100). After rotating, it becomes 100x800 on screen.
-            var scale = new Vector2(verticalHeight / (float)_sprite.Width, verticalWidth / (float)_sprite.Height);
+            var scale = new Vector2(verticalHeight / (float)Sprite.Width, verticalWidth / (float)Sprite.Height);
 
             spriteBatch.Draw(
-                _sprite,
+                Sprite,
                 center,
                 sourceRectangle: null,
                 color: Color.White,

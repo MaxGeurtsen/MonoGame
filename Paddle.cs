@@ -2,13 +2,12 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Engine;
 
 namespace MonoGame;
 
-public class Paddle
+public class Paddle: GameObject
 {
-    private readonly Texture2D _sprite;
-    private Vector2 _position;
     private const int Velocity = 5;
     private readonly Keys _left, _right;
     private readonly bool _horizontal;
@@ -16,8 +15,8 @@ public class Paddle
 
     public Paddle(Texture2D sprite, Vector2 position, Keys left, Keys right, bool horizontal)
     {
-        _sprite = sprite;
-        _position = position;
+        Sprite = sprite;
+        Position = position;
         _left = left;
         _right = right;
         _horizontal = horizontal;
@@ -30,7 +29,7 @@ public class Paddle
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(_sprite, _position, Color.White);
+        spriteBatch.Draw(Sprite, Position, Color.White);
     }
 
 
@@ -52,11 +51,11 @@ public class Paddle
     {
         if (_horizontal)
         {
-            _position.X -= Velocity;
+            Position.X -= Velocity;
         }
         else
         {
-            _position.Y -= Velocity;
+            Position.Y -= Velocity;
         }
     }
 
@@ -64,11 +63,11 @@ public class Paddle
     {
         if (_horizontal)
         {
-            _position.X += Velocity;
+            Position.X += Velocity;
         }
         else
         {
-            _position.Y += Velocity;
+            Position.Y += Velocity;
         }
     }
 
