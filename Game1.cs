@@ -56,9 +56,12 @@ public class Game1 : Game
         Texture2D paddleSprite = Content.Load<Texture2D>("paddle");
         _paddleBottom = new Paddle(paddleSprite, new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2, 590),
             Keys.Left, Keys.Right, true);
-        _paddleTop = new Paddle(paddleSprite, new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2, 20),Keys.A,Keys.D,true);
-        _paddleLeft = new Paddle(paddleSprite, new Vector2(20,_graphics.GraphicsDevice.Viewport.Height / 2),Keys.W,Keys.S,false);
-        _paddleRight =  new Paddle(paddleSprite, new Vector2(590,_graphics.GraphicsDevice.Viewport.Height / 2),Keys.Up,Keys.Down,false);
+        _paddleTop = new Paddle(paddleSprite, new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2, 40), Keys.A,
+            Keys.D, true);
+        _paddleLeft = new Paddle(paddleSprite, new Vector2(20, _graphics.GraphicsDevice.Viewport.Height / 2), Keys.W,
+            Keys.S, false);
+        _paddleRight = new Paddle(paddleSprite, new Vector2(590, _graphics.GraphicsDevice.Viewport.Height / 2), Keys.Up,
+            Keys.Down, false);
 
 
         // walls
@@ -76,7 +79,7 @@ public class Game1 : Game
             Exit();
 
         _ball.Update(gameTime);
-        
+
         _paddleBottom.Update(gameTime);
         _paddleTop.Update(gameTime);
         _paddleLeft.Update(gameTime);

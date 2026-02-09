@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -6,11 +7,12 @@ namespace MonoGame;
 
 public class Paddle
 {
-    private Texture2D _sprite;
+    private readonly Texture2D _sprite;
     private Vector2 _position;
-    private int _velocity = 5;
-    private Keys _left, _right;
-    private bool _horizontal;
+    private const int Velocity = 5;
+    private readonly Keys _left, _right;
+    private readonly bool _horizontal;
+    private bool _ai = true;
 
     public Paddle(Texture2D sprite, Vector2 position, Keys left, Keys right, bool horizontal)
     {
@@ -23,33 +25,70 @@ public class Paddle
 
     public void Update(GameTime gameTime)
     {
-        if (Keyboard.GetState().IsKeyDown(_left))
-        {
-            if (_horizontal)
-            {
-                _position.X -= _velocity;
-            }
-            else
-            {
-                _position.Y -= _velocity;
-            }
-        }
-
-        if (Keyboard.GetState().IsKeyDown(_right))
-        {
-            if (_horizontal)
-            {
-                _position.X += _velocity;
-            }
-            else
-            {
-                _position.Y += _velocity;
-            }
-        }
+        Move(gameTime);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(_sprite, _position, Color.White);
+    }
+
+
+    private void AiMove(GameTime gameTime)
+    {
+        var time = gameTime.TotalGameTime.TotalSeconds % 2;
+
+        if (time <= 1)
+        {
+            MoveLeft();
+        }
+        else
+        {
+            MoveRight();
+        }
+    }
+
+    private void MoveLeft()
+    {
+        if (_horizontal)
+        {
+            _position.X -= Velocity;
+        }
+        else
+        {
+            _position.Y -= Velocity;
+        }
+    }
+
+    private void MoveRight()
+    {
+        if (_horizontal)
+        {
+            _position.X += Velocity;
+        }
+        else
+        {
+            _position.Y += Velocity;
+        }
+    }
+
+    private void Move(GameTime gameTime)
+    {
+        if (Keyboard.GetState().IsKeyDown(_left))
+        {
+            _ai = false;
+            MoveLeft();
+        }
+
+        if (Keyboard.GetState().IsKeyDown(_right))
+        {
+            _ai = false;
+            MoveRight();
+        }
+
+        if (_ai)
+        {
+            AiMove(gameTime);
+        }
     }
 }
