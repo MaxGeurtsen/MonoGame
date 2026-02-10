@@ -10,15 +10,14 @@ public class Wall : GameObject
     private int y;
     private readonly bool _horizontal;
 
-    public Wall(Texture2D sprite, Vector2 location, bool horizontal)
+    public Wall(Texture2D sprite, Vector2 position, bool horizontal) : base(sprite, position)
     {
-        Sprite = sprite;
-        x = int.Parse(location.X.ToString());
-        y = int.Parse(location.Y.ToString());
+        x = int.Parse(position.X.ToString());
+        y = int.Parse(position.Y.ToString());
         _horizontal = horizontal;
     }
 
-    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    public new void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         // Desired final size on screen
         const int horizontalWidth = 800;

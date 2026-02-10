@@ -6,30 +6,23 @@ using MonoGame.Engine;
 
 namespace MonoGame;
 
-public class Paddle: GameObject
+public class Paddle : GameObject
 {
     private const int Velocity = 5;
     private readonly Keys _left, _right;
     private readonly bool _horizontal;
     private bool _ai = true;
 
-    public Paddle(Texture2D sprite, Vector2 position, Keys left, Keys right, bool horizontal)
+    public Paddle(Texture2D sprite, Vector2 position, Keys left, Keys right, bool horizontal) : base(sprite, position)
     {
-        Sprite = sprite;
-        Position = position;
         _left = left;
         _right = right;
         _horizontal = horizontal;
     }
 
-    public void Update(GameTime gameTime)
+    public new void Update(GameTime gameTime)
     {
         Move(gameTime);
-    }
-
-    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-    {
-        spriteBatch.Draw(Sprite, Position, Color.White);
     }
 
 
